@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block links%}
+<a class="nav-link active" aria-current="page" href="/books">Home</a>
+<a class="nav-link active" href="/logout" style="color: rgb(250, 103, 189);">Logout</a>
+{% endblock %}
+
+{% block titulo %}BOOKSADD{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="offset-2 col-8 text-white cajasformularios p-4 mt-3" style="border-radius: 10px;">
+        <h3 class="text-center">Add a New Book Title and a Review:</h3>
+        <form id="form" class="p-4" method="POST" action="/books/add">
+            {% csrf_token %}
+            <row>
+                <p class="mb-0 mt-2">Book Title:</p>
+                <input name="title" type="text" class="validate form-control input-index input-index"> <!--titulo, check-->
+                <p class="mb-0 mt-2">Author</p>
+                <div> 
+                    <select name="author_id" id="author_id" class="form-control input-index mx-auto" required>
+                        <option value>Please, select an Author</option>
+                        {% for author in  Authors %}
+                        <option value="{{author.id}}">{{author.name}}</option>
+                        {% endfor %}
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" name="newAuthor" id="newAuthor" placeholder="New Author Name" class="d-none form-control"/>
+                </div>
+
+                <!--<div class="col-6 m-2"> 
+                        <p class="mb-0">Select your network</p>
+                        <select name="network_input" id="network_input" class="form-control input-index mx-auto">
+                            {% for network in Networks %}
+                            <option value="{{network.id}}">{{network.title}}</option>
+                            {% endfor %}
+                            <option value="other">Other</option>
+                        </select>
+                        <input type="text" name="newNetwork" id="newNetwork" placeholder="New Network Name" class="d-none form-control"/>
+                    </div>-->
+
+                <div class="mt-2">
+                    <p class="mb-0 mt-2">Review:</p>
+                    <textarea id="review" name="review" placeholder="review" cols="40" rows="3" class="form-control input-index mx-auto text-warning">
+                    </textarea>
+                </div>
+            </row>
+
+            <row class="mb-0 mt-4" >
+                <div class="col-2 mt-4">
+                    <select class="stars" name="stars" id="stars" required>
+                        <label for="stars">Rating:</label>
+                        <option name="0" value=""selected>stars</option>
+                        <option name="1" value="1">★</option>
+                        <option name="2" value="2" >★★</option>
+                        <option name="3" value="3">★★★</option>
+                        <option name="4" value="4">★★★★</option>
+                        <option name="5" value="5">★★★★★</option>
+                    </select>
+                </div>
+                <input class="btn text-white me-auto offset-10 " type="submit" value="submit review" required>
+            </div>
+
+
+
+        </form>
+    </div>   
+</div>
+
+{% endblock %}
+
+{% block libreria %}
+
+    $("#author_id").on("change", function () {
+        if ($(this).val() === "other") {
+            $("#newAuthor").removeClass("d-none");
+        } else {
+            $("#newAuthor").addClass("d-none");
+        }
+    });
+
+{% endblock %}

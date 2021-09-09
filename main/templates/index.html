@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}INDEX USUARIO{% endblock %}
+
+{% block contenido %}
+<h1>Bienvenid@: {{request.session.usuario.name}}</h1>
+<div class="cajasformularios text-center text-white p-4">
+    <a href="/logout" style="color: rgb(250, 103, 189);">SALIR DEL SISTEMA</a>
+    <h1 class="display-5">★★★★★★Books and Reviews (en verdad me llamo Dojoreads)★★★★★★★</h1>
+</div>
+
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

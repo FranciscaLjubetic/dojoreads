@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block links%}
+<a class="nav-link" href="/books/add" style="color: rgb(250, 103, 189);">add a book and review</a>
+<a class="nav-link active" href="/logout" style="color: rgb(250, 103, 189);">Logout</a>
+{% endblock %}
+
+{% block titulo %}BOOKS{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row p-4 text-white">
+        <div class="col-7 m-4 my-auto cajasformularios" style="border-radius: 10px;">
+            <h4>Recent Book Reviews</h4>
+            <div class="border border-info" style="height: 550px; overflow-y: scroll;">
+                {% for rev in newest_three_reviews %}
+                    <div class="p-3 mb-3">
+                        
+                        <h5 class="text-break"><a href="/books/{{rev.book.id}}" style="color: rgb(250, 103, 189);">{{rev.book.title}}</a></h5>
+                        <h6>{{rev.book.author}}</h6>
+                        <h6>Rating: <span value={{rev.rating}}>{{rev.rating}}</span><span class="estrellas">★</span></h6>
+                        <p><a href="/user/{{rev.user.id}}" style="color: rgb(250, 103, 189);">{{rev.user.name}}</a>{{rev.desc}}</p>
+                        <p><i>Posted on:{{rev.updated_at}}</i></p>
+                        {% if this_user.id == request.session.user.id %}
+                            <a href="/delete/{{rev.id}}" style="color: rgb(250, 103, 189);"></a>
+                        {% endif%}
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+
+        <div class="col-4">
+            
+            <div class="my-auto cajasformularios" style="border-radius: 10px;">
+                <h4>Other Books with Reviews</h4>
+                <div class="border border-info m-1 p-2"style="height: 250px; overflow-y: scroll;">
+                {% for bok in Books %}
+                    <p><a href="/books/{{bok.id}}" style="color: rgb(250, 103, 189);">{{bok.title}}</a></p>
+                {% endfor%}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+</div>
+$()
+
+{% endblock %}
+
+{% block libreria %}
+
+
+{% endblock %}

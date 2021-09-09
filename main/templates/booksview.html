@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block links%}
+<a class="nav-link active" aria-current="page" href="/books">Home</a>
+<a class="nav-link active" href="/logout" style="color: rgb(250, 103, 189);">Logout</a>
+{% endblock %}
+
+{% block titulo %}BOOKSVIEW{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row p-4 text-white">
+        <div class="col-7 m-4 my-auto cajasformularios text-white p-4" style="border-radius: 10px;">
+            <h3 class="text-break">{{this_book.title}}</h3>
+            <h5>Author: {{this_book.author}}</h5>
+            <h5> Stars Rate: {{tot_sum}} ★ </h5>
+            <h5>Reviews: </h5>
+            <div class="border border-info" style="height: 450px; overflow-y: scroll;">
+                {% for rev in this_book_reviews %}
+                    <div class="p-3 mb-3">
+                        <h6><a href="/user/{{rev.user.id}}">{{rev.user.name}}</a></h6>
+                        <h6>{{rev.desc}}</h6>
+                        <h6>Rating: <span value="{{rev.rating}}">{{rev.rating}}</span><span class="estrellas">★</span></h6>
+                        <h6><i>Posted on:{{rev.created_at}}</i></h6>
+                        {% if rev.user.id == request.session.user.id %}
+                            <a href="/delete/{{rev.id}}" style="color: rgb(250, 103, 189);">Delete your review</a>
+                        {% endif%}
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+            
+        
+        {% if request.session.user.id not in bookids %}
+            <div class="col-4 m-4 my-auto cajasformularios text-white" style="border-radius: 10px;">
+                <h4>Add a review</h4>
+                <form action="/addreview/{{this_book.id}}" method="POST">
+                    {% csrf_token %}
+                    <textarea id="review" name="new_review" placeholder="review" cols="40" rows="5" class="form-control input-index mx-auto text-warning m-4">
+                    </textarea>
+                    <select name="new_stars" id="stars" required>
+                        <label for="new_stars">Rating:</label>
+                        <option value selected>stars</option>
+                        <option name="1" value="1">★</option>
+                        <option name="2" value="2" >★★</option>
+                        <option name="3" value="3">★★★</option>
+                        <option name="4" value="4">★★★★</option>
+                        <option name="5" value="5">★★★★★</option>
+                    </select>
+                    <input class="btn text-white me-auto" type="submit" value="submit review" required>
+                </form>
+            </div>
+        {% else %}
+        {% endif %}
+        
+    </div>
+    
+</div>
+
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block links%}
+<a class="nav-link active" aria-current="page" href="/books">Home</a>
+<a class="nav-link" href="/books/add" style="color: rgb(250, 103, 189);">add a book and review</a>
+<a class="nav-link active" href="/logout" style="color: rgb(250, 103, 189);">Logout</a>
+{% endblock %}
+
+{% block titulo %}USERVIEW{% endblock %}
+
+{% block contenido %}
+<div class="container text-white">
+    <div class="row">
+        <div class="cajasformularios m-0 mx-auto col-7 p-4">
+            <h1>Alias: {{this_user.alias}}</h1>
+            <h5>Name: {{this_user.name}}</h5>
+            <h5>email: {{this_user.email}}</h5>
+            <h5>Total reviews: {{this_user_total_reviews}}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cajasformularios m-4 mx-auto col-7 p-4">
+            <h5 class="mb-4">Posted reviews on the following books</h5>
+            <div class="border border-info p-2" style="height: 250px; overflow-y: scroll;">
+                {% for rev in this_user.review.all %}
+                <li class="ms-4">
+                    <a class="text-break" href="/books/{{rev.book.id}}" style="color: rgb(250, 103, 189);">{{rev.book.title}}</a>
+                </li>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

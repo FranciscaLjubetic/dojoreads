@@ -1,0 +1,21 @@
+body{
+    background-image: url('https://cnnespanol.cnn.com/wp-content/uploads/2021/01/210106113808-01-milky-way-file-full-169.jpg');
+    background-size: cover;
+}
+.btn {
+   border-color: aquamarine; 
+}
+
+.cajasformularios {
+    background: rgb(4,245,190);
+    background: linear-gradient(122deg, rgba(4,245,190,0.4822303921568627) 0%, rgba(132,56,238,1) 52%, rgba(249,89,159,0.4290091036414566) 100%);
+    border-radius: 10px;
+    padding: 16px;
+    text-decoration-color: blueviolet;
+}
+
+h6> a{
+    color: rgb(238, 236, 240);
+    text-decoration: underline;
+}
+

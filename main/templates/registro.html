@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'js/style.css' %}">
+</head>
+<body>
+  <div id= "backregister" class="container">
+    <div class="mt-4 pt-4">
+      <div class="row p-4 text-white">
+        <div class="col-5 mx-auto p-4 cajasformularios" style="background-color: rgba(8, 156, 149, 0.692); border-radius: 7px;">
+          <h3 class="text-white text-center mb-4">REGISTRO</h3>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              
+              <input type="text" class="form-control" id="name" placeholder ="Nombre" name="name" value="{{request.session.register_name}}">
+            </div>
+            <div class="mb-3">
+              
+              <input type="text" class="form-control" id="alias" placeholder ="Alias" name="alias" value="{{request.session.register_alias}}">
+            </div>
+            <div class="mb-3">
+              
+              <input type="url" class="form-control" id="avatar" placeholder ="Avatar(url)" name="avatar" value="{{request.session.register_avatar}}">
+            </div>
+    
+            <div class="mb-3">
+              
+              <input type="text" class="form-control" id="email" name="email" placeholder ="email" value="{{request.session.register_email}}">
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder ="Contraseña" id="password" name="password">
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder ="Confirmar contraseña" id="password_confirm" name="password_confirm">
+            </div>
+            <input type="hidden" name="role" value="user">
+            <!--
+            <div class="mb-3">
+              <label for="role" class="form-label">Rol</label>
+              <select name="role" id="role">
+                <option value="user">Usuario Normal</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+            -->
+    
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </form>
+    
+        </div>
+
+        <div class="col-5 mx-auto cajasformularios p-4" style="background-color: rgba(8, 156, 149, 0.692); border-radius: 7px;" >
+          <h3 class="text-white text-center">LOGIN</h3>
+    
+          <form method="POST" action="/login">
+            {% csrf_token %}
+              <div class="mb-3 mt-4">
+                
+                <input type="text"  placeholder ="email" class="form-control" id="email" name="email" value="{{request.session.login_email}}">
+            </div>
+            <div class="mb-3">
+                
+                <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    toastr.options = {
+      "closeButton": true,
+      "progressBar": true,
+    }
+
+    {% if messages %}
+      {% for message in messages %}
+        toastr.{{message.tags }}("{{ message }}")
+      {% endfor %}
+    {% endif %}
+
+  </script>
+
+</body>
+</html>
